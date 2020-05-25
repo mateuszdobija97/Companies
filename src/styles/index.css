@@ -11,14 +11,31 @@ html {
 
 .App {
     margin: 0 auto;
+    overflow: hidden;
 }
 
 /* header */
 header h1 {
     margin: 15px 0;
+    font-family: 'Russo One', sans-serif;
+    font-size: 50px;
+    letter-spacing: 2px;
 }
 
-/* table */
+/* main */
+
+.search-company {
+    margin: 10px 0;
+    padding: 10px;
+    border: none;
+    border: 2px solid rgb(0, 115, 119);
+    border-radius: 7px;
+    font-weight: bold;
+    font-size: 16px;
+    outline: none;
+}
+
+/* table-companies */
 
 .table-companies {
     width: 100%;
@@ -48,6 +65,22 @@ header h1 {
 /* Media Queries */
 
 @media(max-width: 720px) {
+
+    header h1 {
+        margin: 10px 0;
+        text-align: center;
+        font-family: 'Russo One', sans-serif;
+        font-size: 40px;
+        letter-spacing: 2px;
+    }
+
+    main {
+        text-align: center;
+    }
+    
+    .search-company {
+        text-align: center;
+    }
     .table-companies thead {
         display: none;
     }
