@@ -3,7 +3,7 @@ import Item from './Item'
 
 const ListItems = ({ companies }) => {
 
-    let i = 0; // table numering
+    let i = 1; // table numering
     const company = companies.map(company => <Item key={company.id} company={company} i={i++} />)
 
     return (

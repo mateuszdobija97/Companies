@@ -48,13 +48,13 @@ const Company = ({ company, i }) => {
 
     return (
         <tr>
-            <td>{i}</td>
-            <td>{company.id}</td>
-            <td>{company.name}</td>
-            <td>{company.city}</td>
-            <td>{sumIncomes}</td>
-            <td>{avgIncomes}</td>
-            <td>{lastMonthIncomes}</td>
+            <td data-label="#">{i}</td>
+            <td data-label="Id:">{company.id}</td>
+            <td data-label="Name:">{company.name}</td>
+            <td data-label="City:">{company.city}</td>
+            <td data-label="Total income:">{sumIncomes}</td>
+            <td data-label="Average income:">{avgIncomes}</td>
+            <td data-label="Last month income:">{lastMonthIncomes}</td>
         </tr>
     );
 }
