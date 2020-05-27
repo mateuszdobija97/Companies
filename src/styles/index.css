@@ -52,6 +52,12 @@ header h1 {
 .table-companies th {
     background-color: rgb(0, 115, 119);
     color: #fff;
+    cursor: pointer;
+}
+
+.table-companies tbody tr {
+    cursor: pointer;
+    transition: .2s;
 }
 
 .table-companies tbody tr:nth-child(even) {
@@ -60,6 +66,10 @@ header h1 {
 
 .table-companies tbody tr:nth-child(odd) {
     background-color: #ececec;
+}
+
+.table-companies tbody tr:hover {
+    background-color: rgba(0, 115, 119, 0.2);
 }
 
 /* Media Queries */
@@ -81,6 +91,33 @@ header h1 {
     .search-company {
         text-align: center;
     }
+
+    .responsive-sort {
+        display: block !important;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .responsive-sort ul {
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        list-style: none;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .responsive-sort ul li {
+        display: flex;
+        align-items: center;
+        border: 1px dotted #FFF;
+        background-color: rgb(0, 115, 119);
+        letter-spacing: 1px;
+        color: #FFF;
+        font-size: 12px;
+        padding: 10px 5px;
+    }
+
     .table-companies thead {
         display: none;
     }
