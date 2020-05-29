@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CompaniesTable from '../components/CompaniesTable';
+import Pagination from '../components/Pagination';
 
 const Main = () => {
 
@@ -8,6 +9,9 @@ const Main = () => {
     const [search, setSearch] = useState('');
     const [filteredCompanies, setFilteredCompanies] = useState([]);
     const [sortDesc, setSortDesc] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [companiesPerPage] = useState(20);
 
     // get data
     const getCompanies = async () => {
@@ -30,6 +34,7 @@ const Main = () => {
             setFilteredCompanies(mappedItems)
             setCompaniesDetails(mappedItems)
         }).catch((error) => console.log(error))
+        setLoading(true)
     }
 
     // data calculations
@@ -86,42 +91,46 @@ const Main = () => {
                 )
             })
         )
-    }, [search])
+    }, [search, companiesDetails])
 
-    // sorting
-    const sortByNumber = key => {
+    const sort = (type, key) => {
         let sorted = [];
-        if (sortDesc) {
-            sorted = filteredCompanies.sort((a, b) => {
-                return b[key] - a[key];
-            });
-        } else {
-            sorted = filteredCompanies.sort((a, b) => {
-                return a[key] - b[key];
-            });
+        if (type === 'string') {
+            if (sortDesc) {
+                sorted = filteredCompanies.sort((a, b) => {
+                    if (a[key].toLowerCase() < b[key].toLowerCase()) return -1;
+                    if (a[key].toLowerCase() > b[key].toLowerCase()) return 1;
+                    return 0;
+                });
+            } else {
+                sorted = filteredCompanies.sort((a, b) => {
+                    if (b[key].toLowerCase() < a[key].toLowerCase()) return -1;
+                    if (b[key].toLowerCase() > a[key].toLowerCase()) return 1;
+                    return 0;
+                });
+            };
+        } else if (type === 'number') {
+            if (sortDesc) {
+                sorted = filteredCompanies.sort((a, b) => {
+                    return b[key] - a[key];
+                });
+            } else {
+                sorted = filteredCompanies.sort((a, b) => {
+                    return a[key] - b[key];
+                });
+            }
         }
         setSortDesc(!sortDesc)
         setFilteredCompanies(sorted)
-    };
-
-    const sortByString = key => {
-        let sorted = [];
-        if (sortDesc) {
-            sorted = filteredCompanies.sort((a, b) => {
-                if (a[key].toLowerCase() < b[key].toLowerCase()) return -1;
-                if (a[key].toLowerCase() > b[key].toLowerCase()) return 1;
-                return 0;
-            });
-        } else {
-            sorted = filteredCompanies.sort((a, b) => {
-                if (b[key].toLowerCase() < a[key].toLowerCase()) return -1;
-                if (b[key].toLowerCase() > a[key].toLowerCase()) return 1;
-                return 0;
-            });
-        };
-        setSortDesc(!sortDesc)
-        setFilteredCompanies(sorted)
     }
+
+    // Get current companies
+    const indexOfLastCompany = currentPage * companiesPerPage;
+    const indexOfFirstCompany = indexOfLastCompany - companiesPerPage;
+    const currentCompanies = filteredCompanies.slice(indexOfFirstCompany, indexOfLastCompany)
+
+    // Change page
+    const paginate = pageNumber => setCurrentPage(pageNumber)
 
     return (
         <main>
@@ -132,10 +141,14 @@ const Main = () => {
                 onChange={e => setSearch(e.target.value)}
                 placeholder="Type to search..."
             />
-            <CompaniesTable
-                companies={filteredCompanies}
-                sortByNumber={sortByNumber}
-                sortByString={sortByString}
+            {loading ? (<CompaniesTable
+                companies={currentCompanies}
+                sort={sort}
+            />) : <h2>Loading...</h2>}
+            <Pagination
+                companiesPerPage={companiesPerPage}
+                totalCompanies={filteredCompanies.length}
+                paginate={paginate}
             />
         </main>
     );

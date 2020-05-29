@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CompaniesTable = ({ companies, sortByNumber, sortByString }) => {
+const CompaniesTable = ({ companies, sortByNumber, sortByString, sort }) => {
     const companiesItems = companies.map(company => (
         <tr key={company.id}>
             <td data-label='Id:'>{company.id}</td>
@@ -16,23 +16,23 @@ const CompaniesTable = ({ companies, sortByNumber, sortByString }) => {
         <React.Fragment>
             <div className="responsive-sort" style={{ display: 'none' }}>
                 <ul>
-                    <li onClick={() => sortByNumber('id')}>Id:</li>
-                    <li onClick={() => sortByString('name')}>Name:</li>
-                    <li onClick={() => sortByString('city')}>City:</li>
-                    <li onClick={() => sortByNumber('incomes')}>Total incomes:</li>
-                    <li onClick={() => sortByNumber('avgIncomes')}>Average incomes:</li>
-                    <li onClick={() => sortByNumber('lastMonthIncomes')}>Last month incomes:</li>
+                    <li onClick={() => sort('number', 'id')}>Id:</li>
+                    <li onClick={() => sort('string', 'name')}>Name:</li>
+                    <li onClick={() => sort('string', 'city')}>City:</li>
+                    <li onClick={() => sort('number', 'incomes')}>Total incomes:</li>
+                    <li onClick={() => sort('number', 'avgIncomes')}>Average incomes:</li>
+                    <li onClick={() => sort('number', 'lastMonthIncomes')}>Last month incomes:</li>
                 </ul>
             </div>
             <table className="table-companies">
                 <thead>
                     <tr>
-                        <th onClick={() => sortByNumber('id')}>Id:</th>
-                        <th onClick={() => sortByString('name')}>Name:</th>
-                        <th onClick={() => sortByString('city')}>City:</th>
-                        <th onClick={() => sortByNumber('incomes')}>Total incomes:</th>
-                        <th onClick={() => sortByNumber('avgIncomes')}>Average incomes:</th>
-                        <th onClick={() => sortByNumber('lastMonthIncomes')}>Last month incomes:</th>
+                        <th onClick={() => sort('number', 'id')}>Id:</th>
+                        <th onClick={() => sort('string', 'name')}>Name:</th>
+                        <th onClick={() => sort('string', 'city')}>City:</th>
+                        <th onClick={() => sort('number', 'incomes')}>Total incomes:</th>
+                        <th onClick={() => sort('number', 'avgIncomes')}>Average incomes:</th>
+                        <th onClick={() => sort('number', 'lastMonthIncomes')}>Last month incomes:</th>
                     </tr>
                 </thead>
                 <tbody>
